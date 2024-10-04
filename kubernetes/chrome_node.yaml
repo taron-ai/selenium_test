@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chrome-node
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: chrome-node
+  template:
+    metadata:
+      labels:
+        app: chrome-node
+    spec:
+      containers:
+        - name: chrome-node
+          image: selenium/standalone-chrome:latest
+          env:
+          - name: SELENIUM_REMOTE_HOST
+            value: "localhost"  # Change as necessary
+          - name: SELENIUM_DISABLE_TELEMETRY
+            value: "true"  # Disable telemetry
+          - name: SELENIUM_LOG_LEVEL
+            value: "ERROR"  # Set the log level to ERROR to minimize output
+          - name: SELENIUM_LOG_DISABLE
+            value: "true"  # Option to disable logging
+          - name: SELENIUM_ENABLE_DEBUG_LOGGING
+            value: "false"  # Disable debug logging
+          - name: SELENIUM_DISABLE_EVENT_LOGGING
+            value: "true"  # Disable event logging
+          - name: SELENIUM_DISABLE_MOBILE_SAMPLING
+            value: "true"  # Disable mobile telemetry sampling
+          - name: SELENIUM_DISABLE_OPENTELEMETRY
+            value: "true"  # Disable OpenTelemetry if supported
+          ports:
+            - containerPort: 4444
+          resources:
+            requests:
+              cpu: "1"     
+              memory: "512Mi" 
+            limits:
+              cpu: "2"        
+              memory: "1Gi"   
+

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-controller
+  template:
+    metadata:
+      labels:
+        app: test-controller
+    spec:
+      containers:
+        - name: test-controller
+          image: 575430549747.dkr.ecr.eu-west-1.amazonaws.com/test:controller
+          command: ["tail", "-f", "/dev/null"] 
+          resources:
+            requests:
+              cpu: "1"     
+              memory: "512Mi" 
+            limits:
+              cpu: "2"        
+              memory: "1Gi"   
